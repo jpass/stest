@@ -2,18 +2,18 @@
 
 namespace Lib\Reader;
 
-use Lib\Parser\VarnishLogParser;
+use Lib\Parser\VarnishLogParserInterface;
 
 class VarnishLogReader
 {
     /**
-     * @var VarnishLogParser
+     * @var VarnishLogParserInterface
      */
     private $parser;
 
     private $data;
 
-    public function __construct($parser)
+    public function __construct(VarnishLogParserInterface $parser)
     {
         $this->parser = $parser;
     }
@@ -32,7 +32,7 @@ class VarnishLogReader
         return $this;
     }
 
-    public function getTopHosts($top)
+    public function getTopHosts($top = false)
     {
         $tmp = array();
         foreach($this->data as $item)
@@ -50,6 +50,11 @@ class VarnishLogReader
 
         arsort($tmp);
 
-        return array_slice($tmp, 0, $top);
+        if($top)
+        {
+            return array_slice($tmp, 0, $top);
+        }
+
+        return $tmp;
     }
 }

@@ -114,4 +114,41 @@ class VarnishLogReaderSpec extends ObjectBehavior
             )
         );
     }
+
+    public function it_should_return_all_hosts(VarnishLogParserInterface $parser)
+    {
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg.no');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg2.no');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg3.no');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg4.no');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg5.no');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg6.no');
+
+        $this->read('vfs://workDir/test')->getTopHosts()->shouldReturn(
+            array(
+                'www.vg5.no' => 1,
+                'www.vg4.no' => 1,
+                'www.vg3.no' => 1,
+                'www.vg2.no' => 1,
+                'www.vg.no' => 1
+            )
+        );
+    }
 }

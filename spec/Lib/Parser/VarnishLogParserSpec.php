@@ -10,6 +10,7 @@ class VarnishLogParserSpec extends ObjectBehavior
     public function it_is_initializable()
     {
         $this->shouldHaveType('Lib\Parser\VarnishLogParser');
+        $this->shouldImplement('Lib\Parser\VarnishLogParserInterface');
     }
 
     public function it_parses_one_line()

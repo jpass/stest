@@ -7,3 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    reader.varnishlog:
+        class: Lib\Reader\VarnishLogReader
+        arguments: ["@parser.varnishlog"]
+
+    parser.varnishlog:
+       class: Lib\Parser\VarnishLogParser

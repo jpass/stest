@@ -2,7 +2,7 @@
 
 namespace Lib\Parser;
 
-class VarnishLogParser
+class VarnishLogParser implements VarnishLogParserInterface
 {
     public function parse($line)
     {
