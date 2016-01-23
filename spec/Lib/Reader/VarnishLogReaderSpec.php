@@ -19,36 +19,86 @@ class VarnishLogReaderSpec extends ObjectBehavior
     {
         $this->workDir = vfsStream::setup('workDir');
 
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_160px.jpg');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg2.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_161px.jpg');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg3.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_162px.jpg');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg4.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_163px.jpg');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg5.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_164px.jpg');
+
+        $parser
+            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_165px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('www.vg6.no');
+
+        $parser
+            ->pathFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_165px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
+            ->willReturn('/video/img/94949_165px.jpg');
+
         $data = '85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"';
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"';
 
         $this->createFile('test', $data);
 
+
+
         $data = '85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
 85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
-85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"';
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_161px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_162px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_163px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_164px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"
+85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_165px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"';
 
         $this->createFile('test2', $data);
 
@@ -68,32 +118,8 @@ class VarnishLogReaderSpec extends ObjectBehavior
         $this->shouldHaveType('Lib\Reader\VarnishLogReader');
     }
 
-    public function it_returns_top_five_hosts(VarnishLogParserInterface $parser)
+    public function it_returns_top_5_hosts(VarnishLogParserInterface $parser)
     {
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg2.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg3.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg4.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg5.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg6.no');
-
         $this->read('vfs://workDir/test')->getTopHosts(5)->shouldReturn(
             array(
                 'www.vg5.no' => 1,
@@ -115,32 +141,8 @@ class VarnishLogReaderSpec extends ObjectBehavior
         );
     }
 
-    public function it_should_return_all_hosts(VarnishLogParserInterface $parser)
+    public function it_returns_all_hosts(VarnishLogParserInterface $parser)
     {
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg2.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg2.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg3.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg3.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg4.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg4.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg5.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg5.no');
-
-        $parser
-            ->hostFromLine('85.164.152.30 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg6.no/video/img/94949_160px.jpg HTTP/1.1" 200 3889 "http://www.vgtv.no/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0"')
-            ->willReturn('www.vg6.no');
-
         $this->read('vfs://workDir/test')->getTopHosts()->shouldReturn(
             array(
                 'www.vg5.no' => 1,
@@ -148,6 +150,42 @@ class VarnishLogReaderSpec extends ObjectBehavior
                 'www.vg3.no' => 1,
                 'www.vg2.no' => 1,
                 'www.vg.no' => 1
+            )
+        );
+    }
+
+    public function it_returns_top_5_files(VarnishLogParserInterface $parser)
+    {
+        $this->read('vfs://workDir/test')->getTopPaths(5)->shouldReturn(
+            array(
+                '/video/img/94949_164px.jpg' => 1,
+                '/video/img/94949_163px.jpg' => 1,
+                '/video/img/94949_162px.jpg' => 1,
+                '/video/img/94949_161px.jpg' => 1,
+                '/video/img/94949_160px.jpg' => 1
+            )
+        );
+
+        $this->read('vfs://workDir/test2')->getTopPaths(5)->shouldReturn(
+            array(
+                '/video/img/94949_161px.jpg' => 7,
+                '/video/img/94949_164px.jpg' => 5,
+                '/video/img/94949_163px.jpg' => 4,
+                '/video/img/94949_162px.jpg' => 3,
+                '/video/img/94949_160px.jpg' => 2
+            )
+        );
+    }
+
+    public function it_returns_all_files(VarnishLogParserInterface $parser)
+    {
+        $this->read('vfs://workDir/test')->getTopPaths()->shouldReturn(
+            array(
+                '/video/img/94949_164px.jpg' => 1,
+                '/video/img/94949_163px.jpg' => 1,
+                '/video/img/94949_162px.jpg' => 1,
+                '/video/img/94949_161px.jpg' => 1,
+                '/video/img/94949_160px.jpg' => 1
             )
         );
     }

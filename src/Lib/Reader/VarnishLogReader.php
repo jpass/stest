@@ -57,4 +57,30 @@ class VarnishLogReader
 
         return $tmp;
     }
+
+    public function getTopPaths($top = false)
+    {
+        $tmp = array();
+        foreach($this->data as $item)
+        {
+            $host = $this->parser->pathFromLine($item);
+            if(isset($tmp[$host]))
+            {
+                $tmp[$host] += 1;
+            }
+            else
+            {
+                $tmp[$host] = 1;
+            }
+        }
+
+        arsort($tmp);
+
+        if($top)
+        {
+            return array_slice($tmp, 0, $top);
+        }
+
+        return $tmp;
+    }
 }

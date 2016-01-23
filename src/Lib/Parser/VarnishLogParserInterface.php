@@ -5,7 +5,9 @@ namespace Lib\Parser;
 interface VarnishLogParserInterface
 {
 
-    public function parse($argument1);
+    public function parse($line);
 
-    public function hostFromLine($argument1);
+    public function hostFromLine($line);
+
+    public function pathFromLine($line);
 }

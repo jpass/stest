@@ -67,4 +67,15 @@ class VarnishLogParserSpec extends ObjectBehavior
              ->shouldReturn('http://2.vgc.no/drfront/images/2012/05/21/c=10,10,813,499;w=388;h=238;42179.jpg')
         ;
     }
+
+    public function it_gets_file_from_line()
+    {
+        $this->pathFromLine('156.52.99.109 - - [23/May/2012:14:01:05 +0200] "GET http://1.vgc.no/drfront/images/2012/05/23/c=0,0,960,633;w=288;h=190;42441.jpg HTTP/1.1" 200 17693 "http://www.vg.no/" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E)"')
+            ->shouldReturn('/drfront/images/2012/05/23/c=0,0,960,633;w=288;h=190;42441.jpg')
+        ;
+
+        $this->pathFromLine('85.164.187.120 - - [23/May/2012:14:01:05 +0200] "GET http://www.vg.no/drfront/images/2012/05/23/c=0,0,960,633;w=288;h=190;42441.jpg?23.05.2012+13%3a49%3a47 HTTP/1.1" 200 2812 "http://www.vg.no/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.46 Safari/536.5"')
+             ->shouldReturn('/drfront/images/2012/05/23/c=0,0,960,633;w=288;h=190;42441.jpg')
+        ;
+    }
 }

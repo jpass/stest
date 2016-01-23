@@ -31,7 +31,11 @@ class DefaultController extends Controller
         $varnishLogReader->read($file);
 
         $topHosts = $varnishLogReader->getTopHosts(5);
+        $topFiles = $varnishLogReader->getTopPaths(5);
 
-        return new JsonResponse($topHosts);
+        return new JsonResponse(array(
+            'topHosts' => $topHosts,
+            'topFiles' => $topFiles
+        ));
     }
 }

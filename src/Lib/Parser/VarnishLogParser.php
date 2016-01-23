@@ -35,4 +35,13 @@ class VarnishLogParser implements VarnishLogParserInterface
 
         return isset($matches[1]) ? $matches[1] : null;
     }
+
+    public function pathFromLine($line)
+    {
+        $url = $this->getUrl($line);
+
+        $host = parse_url($url, PHP_URL_PATH);
+
+        return $host;
+    }
 }
