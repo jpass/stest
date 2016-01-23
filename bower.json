@@ -1,0 +1,22 @@
+{
+  "name": "stest",
+  "authors": [
+    "jpass <suchomski1@gmail.com>"
+  ],
+  "description": "Test app",
+  "main": "",
+  "moduleType": [],
+  "license": "NONE",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
