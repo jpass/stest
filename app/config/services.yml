@@ -13,3 +13,6 @@ services:
 
     parser.varnishlog:
        class: Lib\Parser\VarnishLogParser
+
+    reader.rss:
+        class: Lib\Reader\RSSReader
