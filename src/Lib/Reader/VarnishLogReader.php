@@ -3,6 +3,7 @@
 namespace Lib\Reader;
 
 use Lib\Parser\VarnishLogParserInterface;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 class VarnishLogReader
 {
@@ -11,23 +12,40 @@ class VarnishLogReader
      */
     private $parser;
 
-    private $data;
+    private $file;
 
     public function __construct(VarnishLogParserInterface $parser)
     {
         $this->parser = $parser;
     }
 
-    public function read($file)
+    private function readLines($callback)
     {
-        $this->data = array();
+        if(!is_callable($callback))
+        {
+            throw new Exception('Provided callback is not callable.');
+        }
 
-        $handle = fopen($file, "r");
+        $handle = fopen($this->file, "r");
+
+        if (!$handle) {
+            throw new Exception('Could not open file.');
+        }
+
         while (($line = fgets($handle)) !== false) {
-            $this->data[] = trim($line);
+            $callback(trim($line));
         }
 
         fclose($handle);
+    }
+
+    public function read($file)
+    {
+        if ( !file_exists($file) ) {
+            throw new Exception('File not found.');
+        }
+
+        $this->file = $file;
 
         return $this;
     }
@@ -35,9 +53,9 @@ class VarnishLogReader
     public function getTopHosts($top = false)
     {
         $tmp = array();
-        foreach($this->data as $item)
-        {
-            $host = $this->parser->hostFromLine($item);
+
+        $this->readLines(function($line) use(&$tmp) {
+            $host = $this->parser->hostFromLine(trim($line));
             if(isset($tmp[$host]))
             {
                 $tmp[$host] += 1;
@@ -46,7 +64,7 @@ class VarnishLogReader
             {
                 $tmp[$host] = 1;
             }
-        }
+        });
 
         arsort($tmp);
 
@@ -61,9 +79,8 @@ class VarnishLogReader
     public function getTopPaths($top = false)
     {
         $tmp = array();
-        foreach($this->data as $item)
-        {
-            $host = $this->parser->pathFromLine($item);
+        $this->readLines(function($line) use(&$tmp) {
+            $host = $this->parser->pathFromLine($line);
             if(isset($tmp[$host]))
             {
                 $tmp[$host] += 1;
@@ -72,7 +89,7 @@ class VarnishLogReader
             {
                 $tmp[$host] = 1;
             }
-        }
+        });
 
         arsort($tmp);
 
