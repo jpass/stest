@@ -38,4 +38,19 @@ class DefaultController extends Controller
             'topFiles' => $topFiles
         ));
     }
+
+    /**
+     * @Route("/rss", name="rss")
+     */
+    public function rssAction(Request $request)
+    {
+        $uri = $this->getParameter('rss_uri');
+
+        $rssReader = $this->get('reader.rss');
+        $parsed = $rssReader->read($uri);
+
+        return new JsonResponse(array(
+            'articles' => $parsed
+        ));
+    }
 }
