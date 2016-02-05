@@ -12,6 +12,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#varnish" data-toggle="tab">VarnishLog</a></li>
                     <li><a href="#rss" data-toggle="tab">Rss feed</a></li>
+                    <li><a href="#json" data-toggle="tab">Json feed</a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -48,7 +49,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="json">
+                        <h2>JSON feed</h2>
+                        <div class="panel panel-default">
+                            <div id="json-content" class="panel-body">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -90,6 +99,32 @@
                         $ul.append($li);
                     });
                     $('#rss-content').html($ul);
+                }
+            });
+
+            $.get('{{ url('json-feed') }}', function(data){
+                if(data)
+                {
+                    data.sort(function(a, b) {
+                        a = new Date(a.date + ' ' + a.time);
+                        b = new Date(b.date + ' ' + b.time);
+
+                        if(a == b)
+                        {
+                            return 0;
+                        }
+
+                        return a>b ? -1 : 1;
+                    });
+
+                    var $ul = $('<ul>');
+                    $.each(data, function(key, item){
+                        var $li = $('<li>');
+                        var $a = $('<a>').attr('href', item.link).html('<small>'+item.date+' '+item.time+'</small> '+item.title);
+                        $li.html($a);
+                        $ul.append($li);
+                    });
+                    $('#json-content').html($ul);
                 }
             });
         });
