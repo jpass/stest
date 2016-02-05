@@ -18,3 +18,4 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     varnish_log_file: import/varnish.log
+    rss_uri: http://example.om/rss/feed
