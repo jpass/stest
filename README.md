@@ -1,8 +1,22 @@
 stest
 =====
 
+Installation
+------------
+
+After cloning repository install vendors:
+```
+$ composer install
+$ bower install
+```
+
+Then test run project:
+```
+$ php app/console server:run
+```
+
 Task
-----
+---
 
 Show 3 tabs.
 1. Parsed varnish log file showing top requested 5 hosts and top 5 requested files
