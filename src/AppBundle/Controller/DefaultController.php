@@ -21,7 +21,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/varnish", name="varnish")
+     * @Route("/varnish", name="varnish", options={"expose"=true})
      */
     public function varnishAction(Request $request)
     {
@@ -40,7 +40,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/rss", name="rss")
+     * @Route("/rss", name="rss", options={"expose"=true})
      */
     public function rssAction(Request $request)
     {
@@ -55,7 +55,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/json-feed", name="json-feed")
+     * @Route("/json-feed", name="json-feed", options={"expose"=true})
      */
     public function jsonAction(Request $request)
     {
