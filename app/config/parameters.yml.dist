@@ -19,3 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     varnish_log_file: import/varnish.log
     rss_uri: http://example.om/rss/feed
+    json_uri: http://example.om/json/feed
