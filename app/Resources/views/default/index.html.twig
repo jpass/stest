@@ -3,14 +3,15 @@
 {% block body %}
     <div class="container">
         <div class="jumbotron">
-            <h1>Test application</h1>
+            <h1>SCHIBSTED</h1>
+            <h2>Test application</h2>
         </div>
 
         <div class="panel with-nav-tabs panel-primary">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#varnish" data-toggle="tab">VarnishLog</a></li>
-                    <li><a href="#tab2default" data-toggle="tab">Rss feed</a></li>
+                    <li><a href="#rss" data-toggle="tab">Rss feed</a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -40,8 +41,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab2default">
+                    <div class="tab-pane" id="rss">
                         <h2>Rss feed</h2>
+                        <div class="panel panel-default">
+                            <div id="rss-content" class="panel-body">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,6 +77,20 @@
                    });
                    $('#varnishTopFiles').html($ol);
                }
+            });
+
+            $.get('{{ url('rss') }}', function(data){
+                if(data)
+                {
+                    var $ul = $('<ul>');
+                    $.each(data.articles, function(key, item){
+                        var $li = $('<li>');
+                        var $a = $('<a>').attr('href', item.link).html('<small>'+item.date+'</small> '+item.title);
+                        $li.html($a);
+                        $ul.append($li);
+                    });
+                    $('#rss-content').html($ul);
+                }
             });
         });
     </script>
