@@ -53,4 +53,26 @@ class DefaultController extends Controller
             'articles' => $parsed
         ));
     }
+
+    /**
+     * @Route("/json-feed", name="json-feed")
+     */
+    public function jsonAction(Request $request)
+    {
+        $uri = $this->getParameter('json_uri');
+
+        $content = file_get_contents($uri);
+        if(!$this->testJson($content))
+        {
+            return new JsonResponse(array('error' => 'Failed to load json content'), 404);
+        }
+
+        return new JsonResponse(json_decode($content));
+    }
+
+    private function testJson($content)
+    {
+        json_decode($content);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 }
